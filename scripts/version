@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
     DIRTY="-dirty"
 fi
@@ -17,7 +19,7 @@ if [ -z "$ARCH" ]; then
     ARCH=$(go env GOHOSTARCH)
 fi
 
-ARCH=${ARCH:-"amd64"}
+ARCH=${ARCH:-"arm64"}
 SUFFIX="-${ARCH}"
 TAG=${TAG:-${VERSION}${SUFFIX}}
 REPO=${REPO:-rancher}
@@ -25,4 +27,3 @@ REPO=${REPO:-rancher}
 if echo $TAG | grep -q dirty; then
     TAG=dev
 fi
-
